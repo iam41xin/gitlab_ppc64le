@@ -13,7 +13,7 @@ RUN apt-get install -y \
 
 LABEL install git
 RUN apt-get install -y libcurl4-openssl-dev libexpat1-dev gettext libz-dev
-RUN curl --remote-name --progress \
+RUN wget \
     https://www.kernel.org/pub/software/scm/git/git-2.8.4.tar.gz
 RUN echo '626e319f8a24fc0866167ea5f6bf3e2f38f69d6cb2e59e150f13709ca3ebf301  git-2.8.4.tar.gz' \
     | shasum -a256 -c - && tar -xzf git-2.8.4.tar.gz
@@ -23,7 +23,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
 # CMD /etc/init.d/postfix start && /bin/bash
 
 LABEL install ruby
-RUN curl --remote-name --progress \
+RUN wget \
     https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.3.tar.gz
 RUN echo '1014ee699071aa2ddd501907d18cbe15399c997d  ruby-2.3.3.tar.gz' \
     | shasum -c - && tar xzf ruby-2.3.3.tar.gz
@@ -32,7 +32,7 @@ RUN gem install bundler --no-ri --no-rdoc
 
 LABEL install go
 RUN rm -rf /usr/local/go
-RUN curl --remote-name --progress \
+RUN wget \
     https://storage.googleapis.com/golang/go1.8.3.linux-ppc64le.tar.gz
 RUN echo '3ef38d31d6afbafa2d6d1e02e5c7e690528c035f  go1.8.3.linux-ppc64le.tar.gz' \
     | shasum -a256 -c - && tar -C /usr/local -xzf go1.8.3.linux-ppc64le.tar.gz
@@ -41,7 +41,7 @@ RUN ln -sf /usr/local/go/bin/godoc /usr/local/bin/
 RUN ln -sf /usr/local/go/bin/gofmt /usr/local/bin/
 
 LABEL install node.js
-RUN curl --remote-name --progress \
+RUN wget \
     https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-ppc64le.tar.xz
 RUN tar -C /usr/local -xf node-v6.11.3-linux-ppc64le.tar.xz
 RUN mv /usr/local/node-v6.11.3-linux-ppc64le /usr/local/node
